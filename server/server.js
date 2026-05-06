@@ -28,16 +28,8 @@ app.use(express.static(buildPath, {
 }));
 
 // Fallback to index.html for all non-API routes (SPA routing)
-app.get(/^(?!\/api\/).*/, (req, res) => {
-  const indexPath = path.join(buildPath, "index.html");
-  console.log("Requesting:", req.path, "Serving:", indexPath);
-  
-  if (fs.existsSync(indexPath)) {
-    res.sendFile(indexPath);
-  } else {
-    console.error("index.html not found at:", indexPath);
-    res.status(404).send("Build files not found. Please check deployment.");
-  }
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
 
 const PORT = process.env.PORT || 5000;
