@@ -28,8 +28,12 @@ app.use(express.static(buildPath, {
 }));
 
 // Fallback to index.html for all non-API routes (SPA routing)
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+app.use((req, res, next) => {
+  if (req.method === 'GET' && !req.path.startsWith('/api/')) {
+    res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+  } else {
+    next();
+  }
 });
 
 const PORT = process.env.PORT || 5000;
