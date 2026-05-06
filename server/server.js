@@ -28,7 +28,7 @@ app.use(express.static(buildPath, {
 }));
 
 // Fallback to index.html for all non-API routes (SPA routing)
-app.get("*", (req, res) => {
+app.get(/^(?!\/api\/).*/, (req, res) => {
   const indexPath = path.join(buildPath, "index.html");
   console.log("Requesting:", req.path, "Serving:", indexPath);
   
