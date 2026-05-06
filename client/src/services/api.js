@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://nexus-crm-1-0uxu.onrender.com"
+  baseURL: "https://nexus-crm-1-0uxu.onrender.com/api"
 });
 
 API.interceptors.request.use(req=>{
